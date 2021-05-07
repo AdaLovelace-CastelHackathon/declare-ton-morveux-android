@@ -30,7 +30,7 @@ public class DeclareActivity extends AppCompatActivity implements View.OnClickLi
 
     TextView username;
     Button addChildButton;
-    Button logoutButton;
+
 
     private void loadParent() {
         JsonObjectRequest getParentRequest = new JsonObjectRequest(
@@ -72,20 +72,16 @@ public class DeclareActivity extends AppCompatActivity implements View.OnClickLi
 
         this.username = this.findViewById(R.id.parent_username);
         this.addChildButton = this.findViewById(R.id.add_child_button);
-        this.logoutButton = this.findViewById(R.id.logout_button);
+
 
         this.addChildButton.setOnClickListener(this);
-        this.logoutButton.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         if(v == this.addChildButton) {
             Intent intent = new Intent(this, AddChildActivity.class);
-            this.startActivity(intent);
-            this.finish();
-        } else if(v == this.logoutButton) {
-            Intent intent = new Intent(this, HomeActivity.class);
             this.startActivity(intent);
             this.finish();
         }

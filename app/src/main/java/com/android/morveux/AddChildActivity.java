@@ -2,6 +2,7 @@ package com.android.morveux;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class AddChildActivity extends AppCompatActivity implements View.OnClickL
     EditText firstName;
     EditText schoolName;
     Button saveButton;
+    Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,14 @@ public class AddChildActivity extends AppCompatActivity implements View.OnClickL
         this.firstName = this.findViewById(R.id.edit_child_first_name);
         this.schoolName = this.findViewById(R.id.edit_child_shool_name);
         this.saveButton = this.findViewById(R.id.save_child_button);
+        this.cancelButton = this.findViewById(R.id.cancel_button);
+        if(SchoolService.getInstance().getSchool() != null) {
 
-        this.schoolName.setText(SchoolService.getInstance().getSchool().getName());
+            this.schoolName.setText(SchoolService.getInstance().getSchool().getName());
+        }
+
         this.saveButton.setOnClickListener(this);
+        this.cancelButton.setOnClickListener(this);
 
     }
 
@@ -48,7 +55,9 @@ public class AddChildActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if(v == this.saveButton) {
             this.save();
-
+            this.navigateToHome();
+        } else if(v == this.cancelButton) {
+            this.navigateToHome();
         }
     }
 
@@ -57,9 +66,19 @@ public class AddChildActivity extends AppCompatActivity implements View.OnClickL
         JSONObject childJson = new JSONObject();
         JSONObject schoolJson = new JSONObject();
         try {
-            schoolJson.put("id", SchoolService.getInstance().getSchool().getId());
+            if(SchoolService.getInstance().getSchool() != null) {
+                schoolJson.put("id", SchoolService.getInstance().getSchool().getId());
+            } else {
+                try {
+                    schoolJson.put("id", Integer.parseInt(this.schoolName.getText().toString()));
+                } catch (JSONException jsonException) {
+                    jsonException.printStackTrace();
+                }
+            }
+
         } catch (JSONException e) {
-            e.printStackTrace();
+
+
         }
         try {
             childJson.put("firstName", this.firstName.getText().toString());
@@ -96,6 +115,12 @@ public class AddChildActivity extends AppCompatActivity implements View.OnClickL
         };
         Volley.newRequestQueue(this).add(addChildRequest);
 
+    }
+
+    private void navigateToHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        this.startActivity(intent);
+        this.finish();
     }
 
 

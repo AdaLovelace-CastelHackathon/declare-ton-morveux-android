@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.morveux.entities.School;
-import com.android.morveux.events.GetSicksAndContagiousOfSchoolEvent;
-import com.android.morveux.events.GetSicksOfSchoolEvent;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,10 +29,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 
 public class ListSchoolFragment extends Fragment {
     MutableLiveData<List<School>> mutableLiveDataSchools;
@@ -118,27 +112,7 @@ public class ListSchoolFragment extends Fragment {
         this.initListView();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe
-    public void getNumberOfSickBySchool(GetSicksOfSchoolEvent event) {
-        this.printNumberOfSickBySchoolId(event.school.getId());
-    }
-
-    @Subscribe
-    public void getNumberOfSickAndContagiousBySchool(GetSicksAndContagiousOfSchoolEvent event) {
-        this.printNumberOfSickAndContagiousBySchoolId(event.school.getId());
-    }
 
     private void printNumberOfSickBySchoolId(Long schoolId) {
         String url = "https://declare-ton-morveux.herokuapp.com/api/children/countIsSickBySchool/" + schoolId;

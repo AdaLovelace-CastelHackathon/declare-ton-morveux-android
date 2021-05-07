@@ -14,4 +14,5 @@
     <string name="save">Enregistrer</string>
     <string name="child_first_name">Prénom du morveux</string>
     <string name="school">École</string>
+    <string name="cancel">Annuler</string>
 </resources>
