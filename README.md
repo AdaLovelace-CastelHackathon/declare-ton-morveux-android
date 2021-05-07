@@ -2,7 +2,7 @@
 
 --- Compilation and Runtime ---
 
-1. Clone repository from Github ()
+1. Clone repository from Github (https://github.com/AdaLovelace-CastelHackathon/declare-ton-morveux-android.git)
 2. For the local environment, install the latest version of Android Studio
 3. Configure the SDK Platform with API level 29 from within Android Studio, using SDK Manager
 4. Open the project from within Android Studio
