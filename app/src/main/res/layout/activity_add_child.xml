@@ -19,7 +19,7 @@
         android:id="@+id/edit_child_shool_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/school"
+        android:hint="mettre id de l'école pour l'instant !!!"
         app:layout_constraintTop_toBottomOf="@+id/edit_child_first_name" />
 
     <Button
